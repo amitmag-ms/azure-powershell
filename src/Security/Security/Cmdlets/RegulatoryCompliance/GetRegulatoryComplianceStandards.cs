@@ -15,12 +15,13 @@
 using System.Management.Automation;
 using Commands.Security;
 using Microsoft.Azure.Commands.Security.Common;
-using Microsoft.Azure.Commands.Security.Models.Pricings;
+using Microsoft.Azure.Commands.SecurityCenter.Models.RegulatoryCompliance;
 using Microsoft.Azure.Commands.SecurityCenter.Common;
 using Microsoft.WindowsAzure.Commands.Common.CustomAttributes;
 
 namespace Microsoft.Azure.Commands.SecurityCenter.Cmdlets.RegulatoryCompliance
 {
+    [Cmdlet(VerbsCommon.Get, ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "RegulatoryComplianceStandards", DefaultParameterSetName = ParameterSetNames.SubscriptionScope), OutputType(typeof(PSSecurityRegulatoryComplianceStandards))]
     public class GetRegulatoryComplianceStandards: SecurityCenterCmdletBase
     {
         [Parameter(ParameterSetName = ParameterSetNames.SubscriptionLevelResource, Mandatory = true, HelpMessage = ParameterHelpMessages.ResourceName)]
@@ -40,13 +41,12 @@ namespace Microsoft.Azure.Commands.SecurityCenter.Cmdlets.RegulatoryCompliance
                     WriteObject(regulatoryComplianceStandards.ConvertToPSType(), enumerateCollection: true);
                     break;
                 case ParameterSetNames.SubscriptionLevelResource:
-                    var pricing = SecurityCenterClient.Pricings.GetWithHttpMessagesAsync(Name).GetAwaiter().GetResult().Body;
-                    WriteObject(pricing.ConvertToPSType(), enumerateCollection: false);
+                    var regulatoryComplianceStandard = SecurityCenterClient.RegulatoryComplianceStandards.GetWithHttpMessagesAsync(Name).GetAwaiter().GetResult().Body;
+                    WriteObject(regulatoryComplianceStandard.ConvertToPSType(), enumerateCollection: false);
                     break;
                 case ParameterSetNames.ResourceId:
-                    pricing = SecurityCenterClient.Pricings.GetWithHttpMessagesAsync(AzureIdUtilities.GetResourceName(ResourceId)).GetAwaiter().GetResult().Body;
-
-                    WriteObject(pricing.ConvertToPSType(), enumerateCollection: false);
+                    regulatoryComplianceStandard = SecurityCenterClient.RegulatoryComplianceStandards.GetWithHttpMessagesAsync(AzureIdUtilities.GetResourceName(ResourceId)).GetAwaiter().GetResult().Body;
+                    WriteObject(regulatoryComplianceStandard.ConvertToPSType(), enumerateCollection: false);
                     break;
                 default:
                     throw new PSInvalidOperationException();

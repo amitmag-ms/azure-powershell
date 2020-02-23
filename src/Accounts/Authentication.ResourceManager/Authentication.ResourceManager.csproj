@@ -15,4 +15,10 @@
     <ProjectReference Include="..\Authentication\Authentication.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Update="Microsoft.ApplicationInsights" Version="2.12.1" />
+    <PackageReference Update="Microsoft.Rest.ClientRuntime" Version="2.3.21" />
+    <PackageReference Update="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
 </Project>
