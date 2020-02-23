@@ -17,12 +17,11 @@ using Commands.Security;
 using Microsoft.Azure.Commands.Security.Common;
 using Microsoft.Azure.Commands.SecurityCenter.Models.RegulatoryCompliance;
 using Microsoft.Azure.Commands.SecurityCenter.Common;
-using Microsoft.WindowsAzure.Commands.Common.CustomAttributes;
+
 namespace Microsoft.Azure.Commands.SecurityCenter.Cmdlets.RegulatoryCompliance
 {
-    [Cmdlet(VerbsCommon.Get, ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "SecurityComplainceAssessments", DefaultParameterSetName = ParameterSetNames.SubscriptionScope), OutputType(typeof(PSSecurityPricing))]
-
-    public class GetRegulatoryComplianceAssessments: SecurityCenterCmdletBase
+    [Cmdlet(VerbsCommon.Get, ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "RegulatoryComplianceStandard", DefaultParameterSetName = ParameterSetNames.SubscriptionScope), OutputType(typeof(PSSecurityRegulatoryComplianceStandard))]
+    public class GetRegulatoryComplianceStandard: SecurityCenterCmdletBase
     {
         [Parameter(ParameterSetName = ParameterSetNames.SubscriptionLevelResource, Mandatory = true, HelpMessage = ParameterHelpMessages.ResourceName)]
         [ValidateNotNullOrEmpty]
@@ -45,7 +44,8 @@ namespace Microsoft.Azure.Commands.SecurityCenter.Cmdlets.RegulatoryCompliance
                     WriteObject(regulatoryComplianceStandard.ConvertToPSType(), enumerateCollection: false);
                     break;
                 case ParameterSetNames.ResourceId:
-                    regulatoryComplianceStandard = SecurityCenterClient.RegulatoryComplianceStandards.GetWithHttpMessagesAsync(AzureIdUtilities.GetResourceName(ResourceId)).GetAwaiter().GetResult().Body;
+                    regulatoryComplianceStandard = SecurityCenterClient.RegulatoryComplianceStandards.GetWithHttpMessagesAsync(
+                        AzureIdUtilities.GetResourceName(ResourceId)).GetAwaiter().GetResult().Body;
                     WriteObject(regulatoryComplianceStandard.ConvertToPSType(), enumerateCollection: false);
                     break;
                 default:

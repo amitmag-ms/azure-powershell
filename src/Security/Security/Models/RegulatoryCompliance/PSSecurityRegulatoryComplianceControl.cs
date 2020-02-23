@@ -14,25 +14,18 @@
 
 namespace Microsoft.Azure.Commands.SecurityCenter.Models.RegulatoryCompliance
 {
-    public class PSSecurityRegulatoryComplianceAssessments
+    public class PSSecurityRegulatoryComplianceControl
     {
         public string Id { get; set; }
 
         public string Name { get; set; }
 
-        public string Description { get; set; }
-
-        public string AssessmentType { get; set; }
-
-        public string AssessmentDetailsLink { get; set; }
-
         public string State { get; set; }
 
-        public int PassedResources { get; set; }
+        public int PassedAssessments { get; set; }
 
-        public int FailedResources { get; set; }
+        public int FailedAssessments { get; set; }
 
-        public int SkippedResources { get; set; }
-
+        public int SkippedAssessments { get; set; }
     }
 }

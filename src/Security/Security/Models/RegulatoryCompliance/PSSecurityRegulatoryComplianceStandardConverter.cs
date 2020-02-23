@@ -12,20 +12,26 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Azure.Management.Security.Models;
+
 namespace Microsoft.Azure.Commands.SecurityCenter.Models.RegulatoryCompliance
 {
-    public class PSSecurityRegulatoryComplianceControls
+    public static class PSSecurityRegulatoryComplianceStandardConverter
     {
-        public string Id { get; set; }
+        public static PSSecurityRegulatoryComplianceStandard ConvertToPSType(this RegulatoryComplianceStandard value)
+        {
+            return new PSSecurityRegulatoryComplianceStandard()
+            {
+                Id = value.Id,
+                Name = value.Name
+            };
+        }
 
-        public string Name { get; set; }
-
-        public string State { get; set; }
-
-        public int PassedAssessments { get; set; }
-
-        public int FailedAssessments { get; set; }
-
-        public int SkippedAssessments { get; set; }
+        public static List<PSSecurityRegulatoryComplianceStandard> ConvertToPSType(this IEnumerable<RegulatoryComplianceStandard> value)
+        {
+            return value.Select(standrad => standrad.ConvertToPSType()).ToList();
+        }
     }
 }

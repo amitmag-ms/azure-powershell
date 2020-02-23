@@ -17,18 +17,18 @@ using System.Linq;
 using Microsoft.Azure.Management.Security.Models;
 namespace Microsoft.Azure.Commands.SecurityCenter.Models.RegulatoryCompliance
 {
-    public static class PSSecurityRegulatoryComplianceControlsConverter
+    public static class PSSecurityRegulatoryComplianceControlConverter
     {
-        public static PSSecurityRegulatoryComplianceControls ConvertToPSType(this RegulatoryComplianceControl value)
+        public static PSSecurityRegulatoryComplianceControl ConvertToPSType(this RegulatoryComplianceControl value)
         {
-            return new PSSecurityRegulatoryComplianceControls()
+            return new PSSecurityRegulatoryComplianceControl()
             {
                 Id = value.Id,
-                Name = value.Name,
+                Name = value.Name
             };
         }
 
-        public static List<PSSecurityRegulatoryComplianceControls> ConvertToPSType(this IEnumerable<RegulatoryComplianceControl> value)
+        public static List<PSSecurityRegulatoryComplianceControl> ConvertToPSType(this IEnumerable<RegulatoryComplianceControl> value)
         {
             return value.Select(control => control.ConvertToPSType()).ToList();
         }

@@ -26,6 +26,12 @@ namespace Microsoft.Azure.Commands.SecurityCenter.Common
 
         private static Regex subscriptionRegex = new Regex("/subscriptions/(?<subscriptionId>.*?)/", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
+        private static Regex regulatoryStandardRegex = new Regex("/regulatoryComplianceStandards/(?<StandardName>.*?)/", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
+        private static Regex regulatoryStandardControlRegex = new Regex("/regulatoryComplianceControls/(?<ControlName>.*?)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
+        private static Regex regulatoryStandardAssessmentRegex = new Regex("/regulatoryComplianceAssessments/(?<AssessmentName>.*?)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
         public static string GetResourceName(string id)
         {
             return id.Split('/').Last();
@@ -65,6 +71,42 @@ namespace Microsoft.Azure.Commands.SecurityCenter.Common
             }
 
             return match.Groups["subscriptionId"].Value;
+        }
+
+        public static string GetRegulatoryStandardName(string id)
+        {
+            var match = regulatoryStandardRegex.Match(id);
+
+            if (match.Success != true)
+            {
+                throw new ArgumentException("Invalid format of the resource identifier.", "id");
+            }
+
+            return match.Groups["StandardName"].Value;
+        }
+
+        public static string GetRegulatoryStandardControlName(string id)
+        {
+            var match = regulatoryStandardControlRegex.Match(id);
+
+            if (match.Success != true)
+            {
+                throw new ArgumentException("Invalid format of the resource identifier.", "id");
+            }
+
+            return match.Groups["ControlName"].Value;
+        }
+
+        public static string GetRegulatoryStandardAssessmentName(string id)
+        {
+            var match = regulatoryStandardAssessmentRegex.Match(id);
+
+            if (match.Success != true)
+            {
+                throw new ArgumentException("Invalid format of the resource identifier.", "id");
+            }
+
+            return match.Groups["AssessmentName"].Value;
         }
     }
 }
